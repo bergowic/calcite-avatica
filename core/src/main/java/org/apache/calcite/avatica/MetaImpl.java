@@ -1571,7 +1571,6 @@ public abstract class MetaImpl implements Meta {
         frame = firstFrame;
         rows = firstFrame.rows.iterator();
       }
-      moveNext();
     }
 
     public void remove() {
@@ -1579,6 +1578,9 @@ public abstract class MetaImpl implements Meta {
     }
 
     public boolean hasNext() {
+      if (rows != null && !rows.hasNext()) {
+        moveNext();
+      }
       return rows != null;
     }
 
@@ -1588,7 +1590,6 @@ public abstract class MetaImpl implements Meta {
       }
       final Object o = rows.next();
       currentOffset++;
-      moveNext();
       return o;
     }
 
